@@ -42,8 +42,7 @@
     <!-- QR Code Payment -->
     <div id="qrSection" class="payment-section active">
         <div class="payment-details mb-4" style="display: flex; justify-content: space-between; align-items: center;">
-            <h3>Total Payment</h3>
-            <div id="totalAmount" class="h4 mt-3" style="font-weight: bold;"></div>
+            <h3>Total Pembayaran <span id="totalAmount" style="font-weight: bold;"></span></h3>
         </div>
         <div id="paymentQRContainer" class="text-center">
             <p class="mb-4">Scan QR code below using GoPay or Gojek app</p>
@@ -99,7 +98,7 @@
                 total += price;
             });
 
-            totalAmount.textContent = `Total: Rp ${total.toLocaleString()}`;
+            totalAmount.textContent = `Rp ${total.toLocaleString()}`;
         }
 
         // Show QR code and create payment record
