@@ -1,0 +1,56 @@
+/* TikTok-inspired styles */
+body {
+    background-color: #fff;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #111;
+}
+
+.card {
+    border-radius: 12px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    color: #111;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background-color: #fe2c55;
+    border-color: #fe2c55;
+    color: #fff;
+    font-weight: 600;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+}
+
+.btn-primary:hover {
+    background-color: #e0245e;
+    border-color: #e0245e;
+    color: #fff;
+}
+
+/* Navbar adjustments */
+.navbar {
+    background-color: #fff !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.navbar-text {
+    color: #111 !important;
+    font-weight: 600;
+}
+
+/* Login page adjustments */
+.card-body h2 {
+    color: #111;
+    font-weight: 700;
+}
+
+.form-control:focus {
+    border-color: #fe2c55;
+    box-shadow: 0 0 0 0.25rem rgba(254, 44, 85, 0.25);
+}
