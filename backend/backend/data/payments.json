@@ -1,0 +1,68 @@
+[
+  {
+    "id": "1745736300072",
+    "paymentId": "1745736300072",
+    "templateId": [
+      "1745723595540"
+    ],
+    "userId": "pembeli",
+    "amount": 12345678,
+    "status": "approved",
+    "createdAt": "2025-04-27T06:45:00.786Z"
+  },
+  {
+    "id": "1745736575986",
+    "paymentId": "1745736575986",
+    "templateId": [
+      "1"
+    ],
+    "userId": "pembeli",
+    "amount": 150000,
+    "status": "approved",
+    "createdAt": "2025-04-27T06:49:36.955Z"
+  },
+  {
+    "id": "1745736695044",
+    "paymentId": "1745736695044",
+    "templateId": [
+      "1745726702394"
+    ],
+    "userId": "pembeli",
+    "amount": 10000,
+    "status": "approved",
+    "createdAt": "2025-04-27T06:51:36.346Z"
+  },
+  {
+    "id": "1745737052066",
+    "paymentId": "1745737052066",
+    "templateId": [
+      "1745726702394"
+    ],
+    "userId": "pembeli",
+    "amount": 10000,
+    "status": "approved",
+    "createdAt": "2025-04-27T06:57:32.802Z"
+  },
+  {
+    "id": "1745737373915",
+    "paymentId": "1745737373915",
+    "templateId": [
+      "1745726702394"
+    ],
+    "userId": "pembeli",
+    "amount": 10000,
+    "status": "approved",
+    "createdAt": "2025-04-27T07:02:54.637Z"
+  },
+  {
+    "id": "1745737468075",
+    "paymentId": "1745737468075",
+    "templateId": [
+      "1745723595540"
+    ],
+    "userId": "pembeli",
+    "amount": 12345678,
+    "status": "approved",
+    "createdAt": "2025-04-27T07:04:29.120Z"
+  }
+]
