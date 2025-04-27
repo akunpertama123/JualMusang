@@ -252,7 +252,7 @@ function loadPendingPayments() {
     const container = document.getElementById('pendingPaymentsList');
     if (!container) return;
 
-    fetch('/api/payments/pending')
+    fetch('https://jual-musang.vercel.app/api/payments/pending')
     .then(res => res.json())
     .then(payments => {
         if (!payments.length) {
@@ -278,7 +278,7 @@ function loadPendingPayments() {
 
 // Approve payment
 function approvePayment(paymentId) {
-    fetch('/api/payments/approve', {
+    fetch('https://jual-musang.vercel.app/api/payments/approve', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ paymentId })
