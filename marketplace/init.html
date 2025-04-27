@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Initialize Templates</title>
+</head>
+<body>
+    <h1>Initializing Templates...</h1>
+    <script src="js/init-templates.js"></script>
+    <script>
+        // Check if initialization was successful
+        const templates = JSON.parse(localStorage.getItem('templates') || '[]');
+        if (templates.length > 0) {
+            document.body.innerHTML += '<p>Templates initialized successfully! You can now close this page and return to the marketplace.</p>';
+            document.body.innerHTML += `<p>Number of templates initialized: ${templates.length}</p>`;
+        } else {
+            document.body.innerHTML += '<p style="color: red;">Error: Templates were not initialized properly.</p>';
+        }
+    </script>
+</body>
+</html>
