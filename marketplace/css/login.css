@@ -1,0 +1,21 @@
+.card {
+    margin-top: -50px;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+h2 {
+    color: #333;
+    font-weight: 600;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
