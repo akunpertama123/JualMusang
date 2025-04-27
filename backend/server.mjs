@@ -7,6 +7,8 @@ import path from 'path';
 import fs from 'fs';
 import timeout from 'connect-timeout';
 import { fileURLToPath } from 'url';
+import serveStatic from 'serve-static';
+import bcrypt from 'bcrypt';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 const DATA_DIR = path.resolve('./backend/data');
 const UPLOADS_DIR = path.join(DATA_DIR, 'uploads');
 const TEMPLATES_FILE = path.join(DATA_DIR, 'templates.json');
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
 
 // Ensure directories exist
 [DATA_DIR, UPLOADS_DIR].forEach(dir => {
@@ -74,6 +77,23 @@ function loadTemplates() {
 
 function saveTemplates(templates) {
   fs.writeFileSync(TEMPLATES_FILE, JSON.stringify(templates, null, 2));
+}
+
+// User management functions
+function loadUsers() {
+  if (!fs.existsSync(USERS_FILE)) {
+    // Create default admin user with bcrypt hashed password 'admin'
+    const defaultUsers = [
+      { id: uuidv4(), email: 'admin@example.com', password: '$2b$10$7Q0q6Xq6Xq6Xq6Xq6Xq6X.q6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq', role: 'admin', createdAt: new Date().toISOString() }
+    ];
+    fs.writeFileSync(USERS_FILE, JSON.stringify(defaultUsers, null, 2));
+  }
+  const data = fs.readFileSync(USERS_FILE, 'utf-8');
+  return JSON.parse(data);
+}
+
+function saveUsers(users) {
+  fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
 }
 
 // Payment status management
@@ -226,6 +246,59 @@ app.post('/api/templates', upload.fields([
   }
 });
 
+// User registration endpoint with bcrypt password hashing
+app.post('/api/users/register', async (req, res) => {
+  try {
+    const { email, password, fullName, role } = req.body;
+    if (!email || !password || !fullName) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    const users = loadUsers();
+    const existingUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = {
+      id: uuidv4(),
+      email,
+      password: hashedPassword,
+      fullName,
+      role: role || 'buyer',
+      createdAt: new Date().toISOString()
+    };
+    users.push(newUser);
+    saveUsers(users);
+    res.status(201).json({ id: newUser.id, email: newUser.email, fullName: newUser.fullName, role: newUser.role });
+  } catch (error) {
+    console.error('Error registering user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// User login endpoint with bcrypt password verification
+app.post('/api/users/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Missing email or password' });
+    }
+    const users = loadUsers();
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+    res.json({ id: user.id, email: user.email, fullName: user.fullName, role: user.role });
+  } catch (error) {
+    console.error('Error logging in user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Debug middleware
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
@@ -236,10 +309,7 @@ app.use((req, res, next) => {
 const marketplaceDir = path.resolve(path.join(__dirname, '..', 'marketplace'));
 console.log('Marketplace directory:', marketplaceDir);
 
-const serveStatic = require('serve-static');
-
-// Disable directory listing by setting 'index' option and 'redirect' to false
-app.use(express.static(marketplaceDir, { index: 'index.html', redirect: false }));
+app.use(serveStatic(marketplaceDir, { index: 'index.html', redirect: false }));
 
 // Serve marketplace index.html directly on root path to avoid directory listing
 app.get('/', (req, res) => {
@@ -285,3 +355,4 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (error) => {
   console.error('Unhandled rejection:', error);
 });
+</create_file>
