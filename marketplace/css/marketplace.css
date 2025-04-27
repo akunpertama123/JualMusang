@@ -1,0 +1,139 @@
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.search-container {
+    max-width: 400px;
+}
+
+.template-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    height: 100%;
+}
+
+.template-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.template-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.template-card .card-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.template-card .card-text {
+    flex-grow: 1;
+}
+
+.template-type {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.type-powerpoint {
+    background-color: #ff4b4b;
+    color: white;
+}
+
+.type-excel {
+    background-color: #1f7244;
+    color: white;
+}
+
+.price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0d6efd;
+    margin-top: auto;
+}
+
+.btn-group {
+    margin-bottom: 1.5rem;
+}
+
+.btn-group .btn {
+    padding: 0.5rem 1.5rem;
+}
+
+.modal-body h4 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.modal-body .text-muted {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.modal-body h5 {
+    color: #0d6efd;
+    margin-top: 1.5rem;
+}
+
+#templatesGrid {
+    margin-top: 1rem;
+}
+
+.template-card .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 4.5em;
+}
+
+.input-group {
+    width: auto;
+}
+
+.navbar-text {
+    color: white !important;
+}
+
+/* Image Preview Styles */
+#detailSamplePreviews img {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#detailSamplePreviews img:hover {
+    transform: scale(1.05);
+}
+
+#imagePreviewModal .modal-body {
+    padding: 0;
+    background: #000;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#imagePreviewModal #previewImage {
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+#imagePreviewModal .btn-dark {
+    opacity: 0.7;
+}
+
+#imagePreviewModal .btn-dark:hover {
+    opacity: 1;
+}
