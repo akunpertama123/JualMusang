@@ -107,7 +107,7 @@
             paymentId = Date.now().toString();
 
             // Create payment record in backend
-            fetch('/api/payments/create', {
+            fetch('https://jual-musang.vercel.app/api/payments/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -137,7 +137,7 @@
         function pollPaymentStatus() {
             if (!paymentId) return;
 
-            fetch(`/api/payments/status/${paymentId}`)
+            fetch(`https://jual-musang.vercel.app/api/payments/status/${paymentId}`)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'approved') {
