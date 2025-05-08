@@ -1,0 +1,40 @@
+--- marketplace/marketplace/payment.html
++++ marketplace/marketplace/payment.html
+@@ -170,10 +170,14 @@
+-            fetch('/api/payments/create', {
++            fetch('http://localhost:8000/api/payments/create', {
+                 method: 'POST',
+                 headers: { 'Content-Type': 'application/json' },
+                 body: JSON.stringify({
+                     paymentId,
+-                    templateId: cartItems.map(item => item.id),
+-                    userId: currentUser.id,
+-                    amount: cartItems.reduce((sum, item) => sum + (item.price || 0), 0)
++                    templateId: cartItems.map(item => item.id),
++                    userId: currentUser.id,
++                    amount: cartItems.reduce((sum, item) => sum + (item.price || 0), 0)
+                 })
+             }).then(res => res.json())
+             .then(data => {
+                 if (data.error) {
+-                    alert('Error creating payment: ' + data.error);
++                    alert('Error creating payment: ' + data.error);
+                     return;
+                 }
+-                // Show waiting section
+-                document.getElementById('qrSection').classList.remove('active');
+-                document.getElementById('waitingSection').classList.add('active');
+-
+-                // Start polling payment status
+-                pollPaymentStatus();
++                // Show waiting section
++                document.getElementById('qrSection').classList.remove('active');
++                document.getElementById('waitingSection').classList.add('active');
++
++                // Start polling payment status
++                pollPaymentStatus();
+             }).catch(err => {
+-                alert('Error creating payment: ' + err.message);
++                alert('Error creating payment: ' + err.message);
+             });
+         }
