@@ -1,0 +1,55 @@
+--- backend/server.mjs
++++ backend/server.mjs
+@@ -1,6 +1,7 @@
+ import express from 'express';
+ import cors from 'cors';
+-// import bodyParser from 'body-parser';
++// import bodyParser from 'body-parser';
++import { loadPayments, savePayments } from './utils/payments.js';
+ import multer from 'multer';
+ import { v4 as uuidv4 } from 'uuid';
+ import path from 'path';
+@@ -150,6 +151,26 @@
+ // POST /api/payments/approve - Approve a payment
+ app.post('/api/payments/approve', (req, res) => {
+   try {
+     const { paymentId } = req.body;
+     if (!paymentId) {
+       return res.status(400).json({ error: 'Missing paymentId' });
+     }
+     const payments = loadJSON(path.join(DATA_DIR, 'payments.json'));
+     const payment = payments.find(p => p.id === paymentId);
+     if (!payment) {
+       return res.status(404).json({ error: 'Payment not found' });
+     }
+     payment.status = 'approved';
+     saveJSON(path.join(DATA_DIR, 'payments.json'), payments);
+     res.json({ success: true });
+   } catch (error) {
+     console.error('Error approving payment:', error);
+     res.status(500).json({ error: 'Internal server error' });
+   }
++});
++
++// POST /api/payments/create - Create a new payment
++app.post('/api/payments/create', (req, res) => {
++  try {
++    const paymentData = req.body;
++    if (!paymentData) {
++      return res.status(400).json({ error: 'Missing payment data' });
++    }
++    const payments = loadPayments();
++    const newPayment = {
++      id: uuidv4(),
++      ...paymentData,
++      status: 'pending',
++      createdAt: new Date().toISOString()
++    };
++    payments.push(newPayment);
++    savePayments(payments);
++    res.status(201).json(newPayment);
++  } catch (error) {
++    console.error('Error creating payment:', error);
++    res.status(500).json({ error: 'Internal server error' });
++  }
+ });
